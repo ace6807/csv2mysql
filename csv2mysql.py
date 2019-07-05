@@ -15,7 +15,7 @@ dataframe_type_map = {
 
 
 def clean_column_name(column):
-    "Not going to worry about the regex for now"
+    """ Not going to worry about the regex for now. Leaving some fun for you ;) """
     column = column.replace("(", "_")
     column = column.replace(")", "")  # Had to change this to an empty space
     column = column.replace("-", "_")
