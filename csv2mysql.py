@@ -5,6 +5,8 @@ import pymysql
 import pandas as pd
 import click
 
+# I usually don't like global state like this...
+# If this was refactored into a class this wouldn't be an issue.
 dataframe_type_map = {
     'float64': 'DOUBLE',
     'object': 'VARCHAR(1000)',
@@ -110,8 +112,9 @@ def load_table_from_file(conn, filepath, table_name):
 
 @click.command()
 @click.argument('file_path', type=click.Path(exists=True))
+@click.argument('db_name')
 @click.argument('table_name')
-def main(file_path, table_name):
+def main(file_path, db_name, table_name):
 
     df = pd.read_csv(file_path)
 
@@ -123,7 +126,7 @@ def main(file_path, table_name):
         port=3306,
         user='root',
         password='root',
-        db='testdb',
+        db=db_name,
         local_infile=True,
     )
 
